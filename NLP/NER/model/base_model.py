@@ -61,8 +61,8 @@ class BaseModel(object):
     def initialize_session(self):
         """Defines self.sess and initialize the variables"""
         self.logger.info("Initializing tf session")
-        # configProto = tf.ConfigProto(log_device_placement=False)
-        configProto = tf.ConfigProto(log_device_placement=True)
+        configProto = tf.ConfigProto()
+        # configProto = tf.ConfigProto(log_device_placement=True)
         configProto.gpu_options.allow_growth = True
         # configProto.gpu_options.per_process_gpu_memory_fraction = 0.3
         self.sess = tf.Session(config=configProto)
