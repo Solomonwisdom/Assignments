@@ -1,0 +1,76 @@
+\documentclass[UTF8]{article}
+
+%--
+\usepackage{ctex}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+
+%--
+\begin{document}
+    
+%--
+{\flushleft \bf \Large 姓名：} 汪浩港
+
+{\flushleft \bf \Large 学号：} MG1833067
+
+{\flushleft \bf \Large 日期：} 2018.12.4
+
+%=========================================================================
+\section*{命名实体识别}
+    
+    
+%=========================================================================
+\section{任务描述}
+
+根据如下算法实现一个英语单词还原工具:
+
+%--    
+\begin{itemize}
+    \item[(1)] 输入一个单词
+    
+    \item[(2)]  如果词典里有该词，输出该词及其属性，转4，否则，转3
+    
+    \item[(3)]  如果有该词的还原规则，并且，词典里有还原后的词，则输出还原后的词及其属性，转4，否则，调用<未登录词模块>
+    
+    \item[(4)]  如果输入中还有单词，转(1)，否则，结束。
+
+         
+\end{itemize}
+
+
+%=========================================================================
+\section{技术路线}
+
+开发与测试平台均为MacOS，使用Python作为开发语言，Python版本为3.6，将py脚本文件与本次任务需要的文本文件放在同一目录下，基本步骤如下：
+\begin{itemize}
+    \item[(1)] 读取本次实验提供的dic\_ec.txt词典文件，每次处理一行，将这一行的词作为键，属性作为值存入一个字典，用于后面的查询使用。
+    
+    \item[(2)]  将从网上搜集到的不规则名词文件和不规则动词文件也放在这个目录下，分别读取他们，建立不规则词到原形词的映射，这样之后也得到了两个字典，用于处理输入为不规则变换词的情况。
+    
+    \item[(3)]  检验作为参数的单词是否是根据词典文件建立的字典中的键，如果是，输出结果，如果不是，转（4）
+    
+    \item[(4)]  检验这个单词是否是（2）中建立的两个字典之一的键，如果是，得到原形词，再查询（1）中的字典得到属性，输出结果。如果不是，转（5）
+    \item[(5)] 之后使用波特题干提取算法（我直接使用了Python版本的开源实现https://tartarus.org/martin/PorterStemmer/python.txt）对这个单词进行词形还原，如果原形词是根据词典文件建立的字典中的键，查询字典，输出结果。如果不是，转（5）
+    \item[(6)] 之后根据一些普通变形规则处理输入词，如果这个词符合某个规则，并且还原后的词是根据词典文件建立的字典中的键，查询字典，输出结果，否则，输出这个词不存在。
+
+\end{itemize}
+%--
+\section{用到的数据}
+dic\_ec.txt是由本次实验提供的，irregular nouns.txt和irregular verbs.txt是在github中找到的，下载路径分别为https://github.com/Zhangtd/MorTransformation/blob/master/irregular%20nouns.txt和https://github.com/Zhangtd/MorTransformation/blob/master/irregular%20verbs.txt。irregular nouns.txt是一个不规则变换名词表，而irregular verbs.txt是一个不规则变换动词表。
+\section{遇到的问题及解决方案}
+\begin{itemize}
+
+	\item 实验提供的dic\_ec.txt无法以任何一种常用编码（utf-8、gbk等）解析，在python中普通读入总会报错。但是我们需要的内容其实只有英文的单词和属性部分，它们都是可以用utf-8编码格式解析的。所以在Python脚本中使用字节流的形式读入dic\_ec.txt文件，一行中的分割符是b'\textbackslash xff'，用它分割得到字节流数组，之后只取出需要的部分，第一部分使用utf-8编码得到键，其余的部分如果是b'.'结尾就认为是属性，加入值中。
+	\item dic\_ec.txt中存在脏数据，有些行太短，只有词，没有属性和解释，如图1所示。还有单独的'\textbackslash r'（没有后接'\textbackslash n'）存在，如图2所示。编写代码过滤掉这样的行即可。
+
+\end{itemize}
+\begin{center}
+
+\end{center}
+\section{性能评价}
+
+正确率很高，但是这主要是因为dic\_ec.txt中包含的词汇量很大，连很多非原形词也包含了，而波特算法本身和基于一般变形规则变换的方式明显都不完全正确。图1给出了部分测试的结果。
+\begin{center}
+
+\end{center}
+\end{document}
