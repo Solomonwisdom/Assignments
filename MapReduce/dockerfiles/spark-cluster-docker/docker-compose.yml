@@ -1,0 +1,144 @@
+version:  '2'
+services:
+  master:
+    image: solomonfield/spark:2.3.2
+    container_name: master
+    networks:
+      default:
+        ipv4_address: 172.16.0.110
+    extra_hosts:
+      - "slave1:172.16.0.111"
+      - "slave2:172.16.0.112"
+      - "slave3:172.16.0.113"
+      - "slave4:172.16.0.114"
+      - "slave5:172.16.0.115"
+    hostname: master
+    ports: 
+      - "19010:22"
+      - "50070:50070"
+      - "8088:8088"
+      - "8080:8080"
+      - "16010:16010"
+      - "10020:10020"
+      - "19888:19888"
+      - "9000:9000"
+      - "18080:18080"  
+      - "4040:4040"
+    volumes:
+      - ~/Public/repo/Assignments/MapReduce/share:/root/experiment/
+    environment:
+      ROLE: master
+    tty: true
+    stdin_open: true
+
+  slave1:
+    image: solomonfield/spark:2.3.2
+    container_name: slave1
+    networks:
+      default:
+        ipv4_address: 172.16.0.111
+    extra_hosts:
+      - "master:172.16.0.110"
+      - "slave2:172.16.0.112"
+      - "slave3:172.16.0.113"
+      - "slave4:172.16.0.114"
+      - "slave5:172.16.0.115"
+    hostname: slave1
+    ports: 
+      - "19011:22"
+    environment:
+      ROLE: slave
+    tty: true
+    stdin_open: true
+
+  slave2:
+    image: solomonfield/spark:2.3.2
+    container_name: slave2
+    networks:
+      default:
+        ipv4_address: 172.16.0.112
+    extra_hosts:
+      - "master:172.16.0.110"
+      - "slave1:172.16.0.111"
+      - "slave3:172.16.0.113"
+      - "slave4:172.16.0.114"
+      - "slave5:172.16.0.115"
+    hostname: slave2
+    ports: 
+      - "19012:22"
+    environment:
+      ROLE: slave
+    tty: true
+    stdin_open: true
+
+  slave3:
+    image: solomonfield/spark:2.3.2
+    container_name: slave3
+    networks:
+      default:
+        ipv4_address: 172.16.0.113
+    extra_hosts:
+      - "master:172.16.0.110"
+      - "slave1:172.16.0.111"
+      - "slave2:172.16.0.112"
+      - "slave4:172.16.0.114"
+      - "slave5:172.16.0.115"
+    hostname: slave3
+    ports: 
+      - "19013:22"
+    environment:
+      ROLE: slave
+    tty: true
+    stdin_open: true
+
+  slave4:
+    image: solomonfield/spark:2.3.2
+    container_name: slave4
+    networks:
+      default:
+        ipv4_address: 172.16.0.114
+    extra_hosts:
+      - "master:172.16.0.110"
+      - "slave1:172.16.0.111"
+      - "slave2:172.16.0.112"
+      - "slave3:172.16.0.113"
+      - "slave5:172.16.0.115"
+    hostname: slave4
+    ports: 
+      - "19014:22"
+    environment:
+      ROLE: slave
+    tty: true
+    stdin_open: true
+
+  slave5:
+    image: solomonfield/spark:2.3.2
+    container_name: slave5
+    networks:
+      default:
+        ipv4_address: 172.16.0.115
+    extra_hosts:
+      - "master:172.16.0.110"
+      - "slave1:172.16.0.111"
+      - "slave2:172.16.0.112"
+      - "slave3:172.16.0.113"
+      - "slave4:172.16.0.114"
+    hostname: slave5
+    ports: 
+      - "19015:22"
+    environment:
+      ROLE: slave
+    tty: true
+    stdin_open: true
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.0.0/16
+        gateway: 172.16.0.249
+

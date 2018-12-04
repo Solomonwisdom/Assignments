@@ -1,0 +1,7 @@
+*sh
+*pyc
+/data
+!/data/.gitkeep
+/results
+*.DS_Store
+/data_path_save
