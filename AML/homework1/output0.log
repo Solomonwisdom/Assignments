@@ -1,0 +1,30 @@
+pca(k=10,data=sonar): 58.2524%
+pca(k=20,data=sonar): 56.3107%
+pca(k=30,data=sonar): 56.3107%
+pca(k=10,data=splice): 75.8161%
+pca(k=20,data=splice): 76.2759%
+pca(k=30,data=splice): 73.5632%
+svd(k=10,data=sonar): 59.2233%
+svd(k=20,data=sonar): 58.2524%
+svd(k=30,data=sonar): 56.3107%
+svd(k=10,data=splice): 75.8621%
+svd(k=20,data=splice): 76.4138%
+svd(k=30,data=splice): 74.8046%
+k of the knn: 6
+isomap(k=10,data=sonar): 41.7476%
+time spent: 0.48847508430480957s
+k of the knn: 6
+isomap(k=20,data=sonar): 41.7476%
+time spent: 0.4949610233306885s
+k of the knn: 6
+isomap(k=30,data=sonar): 43.6893%
+time spent: 0.49758291244506836s
+k of the knn: 4
+isomap(k=10,data=splice): 68.0920%
+time spent: 110.73013639450073s
+k of the knn: 4
+isomap(k=20,data=splice): 69.0115%
+time spent: 111.12604904174805s
+k of the knn: 4
+isomap(k=30,data=splice): 69.1954%
+time spent: 113.73697853088379s

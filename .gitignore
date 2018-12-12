@@ -12,3 +12,5 @@
 *.out
 *.npz
 *.pkl
+*.idea/
+*.DS_Store

@@ -1,0 +1,360 @@
+\documentclass[a4paper,UTF8]{article}
+\usepackage{ctex}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{mdframed}
+\usepackage{lipsum}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\newmdtheoremenv{thm-box}{myThm}
+\newmdtheoremenv{prop-box}{Proposition}
+\newmdtheoremenv{def-box}{定义}
+
+\floatname{algorithm}{算法}
+\renewcommand{\algorithmicrequire}{\textbf{输入:}}
+\renewcommand{\algorithmicensure}{\textbf{输出:}}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+	numbers=left, 
+	numberstyle= \tiny, 
+	keywordstyle= \color{ blue!70},
+	commentstyle= \color{red!50!green!50!blue!50}, 
+	frame=shadowbox, % 阴影效果
+	rulesepcolor= \color{ red!20!green!20!blue!20} ,
+	escapeinside=``, % 英文分号中可写入中文
+	xleftmargin=2em,xrightmargin=2em, aboveskip=1em,
+	framexleftmargin=2em
+} 
+
+\usepackage{booktabs}
+
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\topmargin}{-0.5in}
+% \setlength{\textheight}{9.5in}
+%%%%%%%%%%%%%%%%%%此处用于设置页眉页脚%%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr}                                
+\usepackage{lastpage}                                           
+\usepackage{layout}                                             
+\footskip = 10pt 
+\pagestyle{fancy}                    % 设置页眉                 
+\lhead{2018年秋季}                    
+\chead{高级机器学习}                                                
+% \rhead{第\thepage/\pageref{LastPage}页} 
+\rhead{作业一}                                                                                               
+\cfoot{\thepage}                                                
+\renewcommand{\headrulewidth}{1pt}  			%页眉线宽，设为0可以去页眉线
+\setlength{\skip\footins}{0.5cm}    			%脚注与正文的距离           
+\renewcommand{\footrulewidth}{0pt}  			%页脚线宽，设为0可以去页脚线
+
+\makeatletter 									%设置双线页眉                                        
+\def\headrule{{\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi%
+		\hrule\@height 1.0pt \@width\headwidth\vskip1pt	%上面线为1pt粗  
+		\hrule\@height 0.5pt\@width\headwidth  			%下面0.5pt粗            
+		\vskip-2\headrulewidth\vskip-1pt}      			%两条线的距离1pt        
+	\vspace{6mm}}     								%双线与下面正文之间的垂直间距              
+\makeatother  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\numberwithin{equation}{section}
+%\usepackage[thmmarks, amsmath, thref]{ntheorem}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{definition}{Definition}
+\newtheorem*{solution}{Solution}
+\newtheorem*{prove}{Proof}
+\newcommand{\indep}{\rotatebox[origin=c]{90}{$\models$}}
+
+\usepackage{multirow}
+
+%--
+
+%--
+\begin{document}
+	\title{高级机器学习\\
+		作业一}
+	\author{MG1833067, 汪浩港, whg19961229@gmail.com}
+	\maketitle
+	
+	\section{[25pts] Multi-Class Logistic Regression}
+	教材的章节3.3介绍了对数几率回归解决二分类问题的具体做法。假定现在的任务不再是二分类问题，而是多分类问题，其中$y\in\{1,2\dots,K\}$。请将对数几率回归算法拓展到该多分类问题。
+	
+	\begin{enumerate}[(1)]
+		\item \textbf{[15pts]} 给出该对率回归模型的“对数似然”(log-likelihood);
+		\item \textbf{[5pts]} 计算出该“对数似然”的梯度。
+	\end{enumerate}
+	
+	提示1：假设该多分类问题满足如下$K-1$个对数几率，
+	\begin{eqnarray*}
+		\ln\frac{p(y=1|\mathbf{x})}{p(y=K|\mathbf{x})}&=&\mathbf{w}_1^\mathrm{T}\mathbf{x}+b_1\\
+		\ln\frac{p(y=2|\mathbf{x})}{p(y=K|\mathbf{x})}&=&\mathbf{w}_2^\mathrm{T}\mathbf{x}+b_2\\
+		&\dots&\\
+		\ln\frac{p(y={K-1}|\mathbf{x})}{p(y=K|\mathbf{x})}&=&\mathbf{w}_{K-1}^\mathrm{T}\mathbf{x}+b_{K-1}
+	\end{eqnarray*}
+	
+	提示2：定义指示函数$\mathbb{I}(\cdot)$，
+	$$\mathbb{I}(y=j)=
+	\begin{cases}
+	1& \text{若$y$等于$j$}\\
+	0& \text{若$y$不等于$j$}
+	\end{cases}$$
+	
+	\begin{solution}
+		此处用于写解答(中英文均可)\\
+		
+		\begin{enumerate}[(1)]
+			\item 假设该多分类问题满足如下对数几率，
+			\begin{equation*}
+			\begin{split}
+			\ln \frac{p(y=i|\bm{x})}{p(y=K|\bm{x})} = \bm{w}^{\top}_{i}\bm{x}+b_{i} , i=1,2,\ldots,K-1
+\\
+			\end{split}
+			\end{equation*}
+			可得
+			\begin{equation*}
+			\begin{split}
+			p(y=i|\bm{x}) = e^{\bm{w}^{\top}_{i}\bm{x}+b_{i}}p(y=K|\bm{x}) , i=1,2,\ldots,K-1  \,
+\\
+			\end{split}
+			\end{equation*}
+			\begin{equation*}
+			\centering
+			\begin{split}
+			\sum_{i=1}^{K} p(y=i|\bm{x}) &= (\sum_{i=1}^{K-1} e^{\bm{w}^{\top}_{i}\bm{x}+b_{i}} + 1)p(y=K|\bm{x})=1 \, \\
+			p(y=K|\bm{x}) &= \frac{1}{1+\sum_{i=1}^{K-1} e^{\bm{w}^{\top}_{i}\bm{x}+b_{i}}} \, \\
+			p(y=i|\bm{x}) &= \frac{e^{\bm{w}^{\top}_{i}\bm{x}+b_{i}}}{1+\sum_{i=1}^{K-1}e^{\bm{w}^{\top}_{i}\bm{x}+b_{i}}} , i=1,2,\ldots,K-1 \,.\\
+			\end{split}
+			\end{equation*}
+			定义指示函数$\mathbb{I}(\cdot)$
+			$$\mathbb{I}(y=j)=
+			\begin{cases}
+			1& \text{若$y$等于$j$}\\
+			0& \text{若$y$不等于$j$}
+			\end{cases}$$,
+			
+			设数据集为$\{(x_i,y_i)\}_{i=1}^{m}$，对于任意$y_i$，有
+			\begin{equation*}
+			\centering
+			\begin{split}
+			\sum_{j=1}^{K}\mathbb{I}(y_i=j)=1 
+			\end{split}
+			\end{equation*}
+			则对数似然如下，
+			\begin{equation} \label{1.1}
+			\centering
+			\begin{split}
+			\ell(w,b) &= \sum_{i=1}^{m} {\sum_{j=1}^{K} {\mathbb{I}(y_i=j)\ln p(y_i=j|\bm{x}_i)}} \\
+			&= \sum_{i=1}^{m} \left(\sum_{j=1}^{K-1} \mathbb{I}(y_i=j)(\bm{w}^{\top}_{j}\bm{x}_i+b_{j}+\ln p(y_i=K|\bm{x}_i) ) + \mathbb{I}(y_i=K)\ln p(y_i=K|\bm{x}_i)\right) \\
+			&= \sum_{i=1}^{m} \left(\sum_{j=1}^{K-1} \mathbb{I}(y_i=j)(\bm{w}^{\top}_{j}\bm{x}_i+b_{j}) + \sum_{j=1}^{K} \mathbb{I}(y_i=j)\ln p(y_i=K|\bm{x}_i)\right) \\
+			&= \sum_{i=1}^{m} \left(\sum_{j=1}^{K-1} \mathbb{I}(y_i=j)(\bm{w}^{\top}_{j}\bm{x}_i+b_{j}) - \ln(1+\sum_{k=1}^{K-1}e^{\bm{\bm{w}^{\top}_{k}\bm{x}_i+b_{k}}})\right)
+			\end{split}
+			\end{equation}
+			
+			\item 由上一问可知对数似然如Eq.\ref{1.1}形式。
+			
+			令$\bm{\beta}=(\bm{w},b)$,$\hat{\bm{x}} = (\bm{x},1)$,$\bm{\beta_j}=(\bm{w_j},b_j)$,$\hat{\bm{x_j}} = (\bm{x_j},1)$，则该对数似然的梯度为：
+			\begin{equation}
+			\centering
+			\begin{split}
+			\frac{\partial \ell(\bm{\beta})}{\partial \bm{\beta_j}} &= \sum_{i=1}^{m}\left(\mathbb{I}(y_i=j)\hat{\bm{x}_i}-\frac{e^{\bm{\beta_j}^{\top}\hat{\bm{x}_i}}}{1+\sum_{k=1}^{K-1}e^{\bm{\beta_k}^{\top}\hat{\bm{x}_i}}}\hat{\bm{x}_i} \right) \\
+			&= \sum_{i=1}^{m} (\mathbb{I}(y_i=j)-p(y_i=j|\hat{\bm{x}_i})) \hat{\bm{x}_i} \,.\\
+			\end{split}
+			\end{equation}
+		\end{enumerate}
+		
+	\end{solution}
+	\newpage
+	
+	\section{[15pts] Semi-Supervised Learning}
+	我们希望使用半监督学习的方法来对文本文档进行分类。假设我们使用二进制指示符的词袋模型描述各个文档，在这里，我们的词库有$10000$个单词，因此每个文档由长度为$10000$的二进制向量表示。
+	
+	对于以下提出的分类器，说明其是否可以用于改进学习性能并提供简要说明。
+	\begin{enumerate}
+		\item \textbf{[5pts]} 使用EM的朴素贝叶斯；
+		\item \textbf{[5pts]} 使用协同训练的朴素贝叶斯；
+		\item \textbf{[5pts]} 使用特征选择的朴素贝叶斯；
+	\end{enumerate}
+	
+	\begin{solution}
+		此处用于写解答(中英文均可)
+		
+		\begin{enumerate}
+			\item  使用EM的朴素贝叶斯：
+			\subitem EM算法使用两个步骤交替计算，第一步是期望步，利用当前估计的参数值来计算对数似然的期望值；第二步是最大化，寻找能使第一步产生的似然期望最大化的参数值。然后，新得到的参数值重新被用于第一步。EM算法其实就是一个迭代的过程。可以更好地帮助其收敛。最大化先确认最大期望，相当于确认了下界，然后用最大化来提高这个界，这样一步一步就可以优化。\\
+			使用EM的朴素贝叶斯可以适用于文本分类。文本分类问题有三个维度来描述——类别、特征、样本。首先，仅从标记文档估计朴素贝叶斯参数θ。然后，分类器用于通过计算缺失类标签$p(c_j \mid d_i;\theta)$的期望来将概率加权的类标签分配给每个未标记的文档。接下来，使用原始和新标记的所有文档来估计新的分类器参数θ。迭代这最后两步直到θ不变。
+			\subitem 它的优点也很显然，朴素贝叶斯假设特征之间是相互独立的，假设太强，可以结合EM学习大量未标记样本，减少因特征相关性造成的分类误差。
+			
+			
+			\item 使用协同训练的朴素贝叶斯：
+			
+			\subitem 协同训练是一种多视角学习方法。
+			
+			\subitem 1. 首先分别在每个视图上利用有标记样本训练一个分类器；
+			
+			\subitem 2. 然后,每个分类器从未标记样本中挑选若干标记置信度(即对样本赋予正确标记的置信度)高的样本标记赋予“伪标记”,并把这些“伪标记”样本(即其标记是由学习器给出的)加入另一个分类器的训练集中,以便对方利用这些新增的有标记样本进行更新。
+	
+			\subitem 这个“互相学习、共同进步”的过程不断迭代进行下去,直到两个分类器都不再发生变化,或达到预先设定的学习轮数为止。这样可以通过一群低泛化性的贝叶斯分类器来逼近一个泛化性高的贝叶斯。
+			
+
+			\item 使用特征选择的朴素贝叶斯：
+			\subitem 对于贝叶斯分类器，如果估计的参数过多，必然需要很大的样例，但是在半监督学习中，训练的规模总是有限的，这样就会导致数据稀疏性问题的出现，特征选择从训练集中选出一部分子集，减小特征空间，去除噪声特征来提高分类器训练的效率和精度。可以使用词袋模型预处理，词袋模型的主要思想，是构建各类文本的词典，然后针对每一个文本，计算该文本每个词在词典中对应位置出现的次数。可以在构建词袋前对文本进行预处理，选择一批特征词进行构建。使用这些特征词构建词典，可以防止构建的词典过于庞大，即不利于存储，也不利于后续词频统计运算等。
+		\end{enumerate}
+	\end{solution}
+	\newpage
+	
+	\section{[60pts] Dimensionality Reduction}
+	请实现三种降维方法：PCA，SVD和ISOMAP，并在降维后的空间上用$1$-NN方法分类。
+	\begin{enumerate}
+		\item 数据：我们给出了两个数据集，都是二分类的数据。可以从\url{https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html}找到，同时也可以在提交作业的目录文件夹中找名为“two datasets”的压缩文件下载使用。每个数据集都由训练集和测试集组成。
+		\item 格式：再每个数据集中，每一行表示一个带标记的样例，即每行最后一列表示对应样例的标记，其余列表示对应样例的特征。
+	\end{enumerate}
+	
+	具体任务描述如下：
+	\begin{enumerate}
+		\item \textbf{[20pts]} 请实现PCA完成降维（方法可在参考书\url{http://www.charuaggarwal.net/Data-Mining.htm} 中 Section 2.4.3.1 中找到）
+		\subitem 首先，仅使用训练数据学习投影矩阵；
+		\subitem 其次，用学得投影矩阵将训练数据与测试数据投影到 $k$-维空间 ($k=10,20,30$)；
+		\subitem 最后，在降维后空间上用$1$-NN预测降维后$k$维数据对应的标记 ($k=10,20,30$)，并汇报准确率。注意，测试数据集中的真实标记仅用来计算准确率。
+		\item \textbf{[20pts]} 请实现SVD完成降维（方法在上述参考书 Section 2.4.3.2 中找到）
+		\subitem 首先，仅使用训练数据学习投影矩阵；
+		\subitem 其次，用学得投影矩阵将训练数据与测试数据投影到 $k$-维空间 ($k=10,20,30$)；
+		\subitem 最后，在降维后空间上用$1$-NN预测降维后$k$维数据对应的标记 ($k=10,20,30$)，并汇报准确率。注意，测试数据集中的真实标记仅用来计算准确率。
+		\item \textbf{[20pts]} 请实现ISOMAP完成降维（方法在参考书 Section 3.2.1.7 中找到）
+		\subitem 首先，使用训练数据与测试数据学习投影矩阵。在这一步中，请用$4$-NN来构建权重图。（请注意此处$4$仅仅是用来举例的，可以使用其他 $k$-NN, $k\geq 4$并给出你选择的k。如果发现构建的权重图不连通，请查找可以解决该问题的方法并汇报你使用的方法）
+		\subitem 其次，用学得投影矩阵将训练数据与测试数据投影到 $k$-维空间 ($k=10,20,30$)。
+		\subitem 最后，在降维后空间上用$1$-NN预测降维后$k$维数据对应的标记 ($k=10,20,30$)，并汇报准确率。注意，测试数据集中的真实标记仅用来计算准确率。
+	\end{enumerate}
+	
+	可以使用已有的工具、库、函数等直接计算特征值和特征向量，执行矩阵的SVD分解，计算graph上两个节点之间的最短路。PCA/SVD/ISOMAP 和 $1$-NN 中的其他步骤必须由自己实现。
+	
+	报告中需要包含三个方法的伪代码和最终的结果。最终结果请以表格形式呈现，表中包含三种方法在两个数据集中，不同 $k=10,20,30$ 下的准确率。
+	
+	
+	\begin{solution}
+		此处用于写解答(中英文均可)
+		
+		\begin{enumerate}
+			\item PCA:
+			\subitem 使用训练数据学习投影矩阵，对测试集使用训练数据的均值去中心化，与投影矩阵进行矩阵相乘得到降维后的数据，用$1NN$预测样本标签，计算准确率，结果如表1。
+			\begin{center}
+				表1 \\
+			\begin{tabular}{l|c|c|c}
+				Acc& $k=10$ & $k=20$ & $k=30$\\
+				\hline
+				sonar& 58.2524\%& 56.3107\%& 56.3107\%\\
+				splice& 75.8161\%& 76.2759\%& 73.5632\%
+			\end{tabular}
+			\end{center}
+			\begin{algorithm}
+				\caption{用PCA降维}
+				\begin{algorithmic}[1] %每行显示行号
+					\Require 数据集$D={x_1,x_2,\ldots,x_m}$；降维后的维数$d'$
+					\Ensure 投影矩阵$W=(w_1,w_2,\ldots,w_{d'})$
+					\Function {PCA}{$D, d'$}
+					\State 对数据集进行中心化: $D \leftarrow D - \text{mean}(D)$
+					\State 计算协方差矩阵: $convD \leftarrow D D^{T}$  
+					\State 对协方差矩阵作特征值分解: $eigenValues \leftarrow \bm{\lambda}(convD)$ 
+					\State 取最大的$d'$个特征值所对应的特征向量: $w_1,w_2,\ldots,w_{d'}$ 
+					\State \Return$W=(w_1,w_2,\ldots,w_{d'})$
+					\EndFunction
+				\end{algorithmic}
+			\end{algorithm}
+			
+			
+			\item SVD:
+			\subitem 使用训练数据学习投影矩阵，将测试集与投影矩阵进行矩阵相乘得到降维后的数据，用$1NN$预测样本标签，计算准确率，结果如表2。
+			\begin{algorithm}
+				\caption{用SVD降维}
+				\begin{algorithmic}[1] %每行显示行号
+					\Require 数据集$D={x_1,x_2,\ldots,x_m}$；降维后的维数$d'$
+					\Ensure 投影矩阵$W=(w_1,w_2,\ldots,w_{d'})$
+					\Function {SVD}{$D, d'$}
+					\State 计算右奇异矩阵P 
+					\State 取右奇异矩阵的左边的$d'\times d'$列: $W \leftarrow P(:d',:)$  
+					\State \Return{$W$}
+					\EndFunction
+				\end{algorithmic}
+			\end{algorithm}
+			\begin{center}
+				表2 \\
+			\begin{tabular}{l|c|c|c}
+				Acc& $k=10$ & $k=20$ & $k=30$\\
+				\hline
+				sonar& 59.2233\%& 58.2524\%& 56.3107\%\\
+				splice& 75.8621\%& 76.4138\%& 74.8046\%
+			\end{tabular}
+			\end{center}
+			
+			\item ISOMAP:
+			\subitem 使用训练数据与测试数据拼接后作为样本集作为isomp的输入得到降维后的数据集，取出测试集对应的部分，用$1NN$预测样本标签，计算准确率，结果如表3。对于sonar数据集，当$KNN$中的$k=6$时可以构造出全连通的带权无向图；而对于splice数据集，当$KNN$中的$k=4$时可以构造出全连通的带权无向图，
+			\begin{algorithm}
+				\caption{用ISOMAP降维}
+				\begin{algorithmic}[1] %每行显示行号
+					\Require 数据集$D={x_1,x_2,\ldots,x_m}$；降维后的维数$d'$；近邻参数$k$
+					\Ensure 降维后的数据集$D'$
+					\Function {ISOMAP}{$D, d'，k$}
+					\For{$i=1,2,\ldots,m$}
+					\State 确定$x_i$的$k$近邻集合$KNN$；
+					\For{$j=1,2,\ldots,m$}
+					\If{$x_j \in KNN$}
+					\State $Dis_{ij} \leftarrow x_i$与$x_j$之间的欧式距离
+					\Else
+					\State $Dis_{ij} \leftarrow \infty$
+					\EndIf
+					\EndFor
+					\EndFor
+					判断当前带权图是否联通，如果不联通，k=k+1，回到上面循环的开头重新生成带权无向图
+					\State 调用最短路径算法获取任意两样本之间最短路径长度$dist$，输入是$Dis$
+					\State \Return{MDS\{$dist$\}}
+					\EndFunction
+				\end{algorithmic}
+			\end{algorithm}
+			
+			\begin{algorithm}
+				\caption{MDS}
+				\begin{algorithmic}[1] %每行显示行号
+					\Require 距离矩阵$D \in \mathcal{R}^{m\times m}$,其元素$dist_{ij}$为样本$x_i$到样本$y_i$的距离；降维后的维数$d'$
+					\Ensure 降维后的数据集$D'$
+					\Function {MDS}{$D$}
+					\State $dist_{i.}^2=\frac{1}{m}\sum_{j=1}^m dist_{ij}^2$
+					\State $dist_{.j}^2=\frac{1}{m}\sum_{i=1}^m dist_{ij}^2$
+					\State $dist_{..}^2=\frac{1}{m}\sum_{i=1}^m \sum_{j=1}^m dist_{ij}^2$
+					\State $b_{ij}=-\frac{1}{2}(dist_{ij}^2 - dist_{i.}^2 - dist_{.j}^2 + dist_{..}^)$
+					\State $B={b_{ij}}, i,j=1,2,\ldots,m$
+					\State 对矩阵B做特征值分解
+					\State 取$\Lambda$为最大的$d'$个特征值所构成的对角矩阵，$\bm{V}$为对应的特征向量的矩阵
+					\State \Return{$\Lambda \bm{V}^{1/2} \in \mathcal{R}^{m\times d'}$}
+					\EndFunction
+				\end{algorithmic}
+			\end{algorithm}
+			\begin{center}
+				表3 \\
+			\begin{tabular}{l|c|c|c}
+				$4-NN$& $k=10$ & $k=20$ & $k=30$\\
+				\hline
+				sonar& 41.7476\%& 41.7476\%& 43.6893\%\\
+				splice& 68.0920\%& 69.0115\%& 69.1954\%
+			\end{tabular}
+			\end{center}
+		\end{enumerate}
+		
+		
+	\end{solution}
+	\newpage
+	
+	
+\end{document}
