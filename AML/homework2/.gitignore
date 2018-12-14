@@ -1,0 +1,8 @@
+*pyc
+*.DS_Store
+*.npz
+*.zip
+*.png
+*.ogg
+*.wav
+saved_model/
