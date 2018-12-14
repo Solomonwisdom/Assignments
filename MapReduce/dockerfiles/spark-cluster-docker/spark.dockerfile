@@ -33,5 +33,5 @@ RUN cp $HADOOP_HOME/etc/hadoop/slaves /usr/local/spark/conf/slaves && \
 ENV SPARK_HOME /usr/local/spark
 ENV PATH $PATH:$SPARK_HOME/bin
 ENV HIVE_SKIP_SPARK_ASSEMBLY=true
-EXPOSE 8080
+EXPOSE 8080 4042
 ENTRYPOINT [ "sh", "-c", "/root/spark-entrypoint.sh; bash"]

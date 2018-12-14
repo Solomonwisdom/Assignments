@@ -23,7 +23,7 @@ services:
       - "19888:19888"
       - "9000:9000"
       - "18080:18080"  
-      - "4040:4040"
+      - "4042:4042"
     volumes:
       - ~/Public/repo/Assignments/MapReduce/share:/root/experiment/
     environment:
