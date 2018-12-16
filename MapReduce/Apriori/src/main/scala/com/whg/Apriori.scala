@@ -5,14 +5,13 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
 
 
 object Apriori {
 
   def main(args: Array[String]): Unit = {
     if (args.length < 2) print("Usage:  <in> <out> [min_supp]")
-    val conf = new SparkConf().setAppName("Apriori")
+    val conf = new SparkConf()
     conf.set("spark.hadoop.validateOutputSpecs", "false")
     val sc = new SparkContext(conf)
     val input = sc.textFile(args(0))
@@ -38,57 +37,33 @@ object Apriori {
           val cnt = datasets.count(data => candidate.subsetOf(data))
           (candidate, cnt)
         }).filter(_._2 >= minCount).cache()
-//        pre.map(x => (x._1.toSeq.mkString(","), x._2 * 1.0 / totalCount)).take(10).foreach(println)
         if (freqItemsets.count() == 0) {
           pre.sortBy(-_._2).map(x => "{"+x._1.toSeq.mkString(",")+"}"+"\t"+x._2 * 1.0 / totalCount).saveAsTextFile(args(1))
           break
         }
       }
     }
+//    scala.io.StdIn.readLine()
   }
 
   def genCandidates(sc:SparkContext,lastItemsetAndCounts:RDD[(mutable.BitSet, Int)], k:Int): RDD[mutable.BitSet] = {
-    val lastItemsets = lastItemsetAndCounts.map(_._1).collect()
-//    val candidates = new ArrayBuffer[mutable.BitSet]()
-//    for (i <- lastItemsets.indices; j <- i+1 until lastItemsets.length) {
-//      val newset = lastItemsets(i)++lastItemsets(j)
-//      if (newset.size==k && !candidates.contains(newset)) {
-//        var flag = true
-//        breakable {
-//          for (x <- newset) {
-//            val subItemset = newset - x
-//            if (!lastItemsets.contains(subItemset)) {
-//              flag = false
-//              break
-//            }
-//          }
-//        }
-//        if (flag) {
-//          candidates.append(newset)
-//        }
-//      }
-//    }
-//    sc.parallelize(candidates,10)
-    sc.broadcast(lastItemsets)
-    val candidates = lastItemsetAndCounts.flatMap(itemsetAndCnt1=>{
-      val j = lastItemsets.indexOf(itemsetAndCnt1._1)+1
-      lastItemsets.slice(j, lastItemsets.length).map(itemset2=>itemsetAndCnt1._1++itemset2).filter(newset=>{
-        if (newset.size!=k) false
-        else {
-          var flag = true
-          breakable {
-            for (x <- newset) {
-              val subItemset = newset - x
-              if (!lastItemsets.contains(subItemset)) {
-                flag = false
-                break
-              }
+    val lastItemsets = lastItemsetAndCounts.map(_._1).cache()
+    val lastItemsetArray = lastItemsets.collect().toSet
+    lastItemsets.cartesian(lastItemsets).map(pair => pair._1++pair._2).filter(newset=>{
+      if (newset.size!=k) false
+      else {
+        var flag = true
+        breakable {
+          for (x <- newset) {
+            val subItemset = newset - x
+            if (!lastItemsetArray.contains(subItemset)) {
+              flag = false
+              break
             }
           }
-          flag
         }
-      })
+        flag
+      }
     }).distinct(10)
-    candidates
   }
 }
