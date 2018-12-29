@@ -17,6 +17,6 @@ spark-submit --class com.whg.Apriori \
 --name Apriori_for_connect --conf "spark.app.id=Apriori_for_connect" \
 apriori_2.11-0.1.jar input/connect.dat output/connect 0.9
 
-hadoop fs -cat output/chess/* > chess.ans
-hadoop fs -cat output/mushroom/* > mushroom.ans
-hadoop fs -cat output/connect/* > connect.ans
+hadoop fs -cat output/chess/* | tee chess.ans
+hadoop fs -cat output/mushroom/* | tee mushroom.ans
+hadoop fs -cat output/connect/* | tee connect.ans
