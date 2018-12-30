@@ -1,0 +1,10 @@
+Topic #0: art: 1.30% city: 1.18% new: 1.00% building: 0.98% street: 0.88% museum: 0.81% artist: 0.72% room: 0.72% space: 0.69% house: 0.68%
+Topic #1: cancer: 3.50% skin: 0.88% product: 0.49% dr: 0.47% breast: 0.44% hair: 0.32% vitamin: 0.31% mugabe: 0.29% body: 0.29% chung: 0.25%
+Topic #2: food: 1.83% restaurant: 1.18% wine: 0.90% recipe: 0.85% chef: 0.63% like: 0.62% make: 0.55% cooking: 0.53% chicken: 0.48% cook: 0.48%
+Topic #3: said: 1.54% mr: 1.17% like: 0.67% year: 0.65% new: 0.61% time: 0.57% people: 0.53% trump: 0.46% way: 0.30% day: 0.29%
+Topic #4: game: 1.90% said: 1.35% team: 1.12% season: 0.91% player: 0.90% year: 0.67% second: 0.62% run: 0.56% time: 0.55% league: 0.53%
+Topic #5: mr: 3.52% said: 2.06% state: 1.07% company: 0.95% court: 0.76% law: 0.74% republican: 0.71% case: 0.69% year: 0.61% police: 0.55%
+Topic #6: music: 1.61% theater: 1.54% fashion: 1.37% musical: 1.30% graduated: 1.01% play: 0.93% season: 0.92% met: 0.81% father: 0.78% production: 0.78%
+Topic #7: dr: 7.19% ali: 3.02% scientist: 1.56% disease: 1.38% study: 1.34% researcher: 1.13% climate: 1.08% cell: 1.04% human: 0.97% research: 0.97%
+Topic #8: ballet: 2.64% film: 0.61% haq: 0.33% pulte: 0.32% chan: 0.27% pinney: 0.26% pretor: 0.26% emoji: 0.26% pugh: 0.26% baffert: 0.25%
+Topic #9: said: 1.77% mr: 1.07% state: 0.82% year: 0.62% united: 0.62% government: 0.61% country: 0.61% percent: 0.49% official: 0.43% american: 0.43%

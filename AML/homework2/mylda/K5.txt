@@ -1,0 +1,5 @@
+Topic #0: said: 1.27% company: 1.21% year: 0.95% percent: 0.78% million: 0.75% new: 0.63% would: 0.55% also: 0.42% business: 0.41% market: 0.40%
+Topic #1: mr: 4.27% said: 1.41% trump: 1.04% would: 0.81% state: 0.76% party: 0.58% president: 0.57% school: 0.53% republican: 0.52% clinton: 0.51%
+Topic #2: like: 0.74% new: 0.66% said: 0.66% one: 0.63% m: 0.56% mr: 0.44% time: 0.42% show: 0.41% work: 0.38% year: 0.33%
+Topic #3: said: 1.31% game: 1.13% team: 0.84% first: 0.78% season: 0.65% two: 0.64% one: 0.57% player: 0.56% year: 0.55% last: 0.53%
+Topic #4: said: 2.41% mr: 0.97% state: 0.64% people: 0.58% official: 0.51% police: 0.49% one: 0.46% year: 0.46% government: 0.43% united: 0.41%

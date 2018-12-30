@@ -1,0 +1,10 @@
+Topic #0: said: 1.48% people: 1.48% one: 0.95% like: 0.93% school: 0.93% year: 0.81% woman: 0.77% would: 0.67% say: 0.66% work: 0.65%
+Topic #1: new: 1.29% m: 0.71% art: 0.64% show: 0.61% york: 0.57% work: 0.57% city: 0.55% building: 0.47% year: 0.46% street: 0.45%
+Topic #2: said: 3.32% m: 0.91% family: 0.86% police: 0.78% one: 0.69% city: 0.61% home: 0.58% father: 0.54% man: 0.53% mother: 0.52%
+Topic #3: mr: 3.75% said: 2.72% state: 1.18% case: 1.17% court: 1.10% law: 1.09% department: 0.64% year: 0.58% lawyer: 0.57% federal: 0.56%
+Topic #4: like: 1.36% one: 0.89% time: 0.81% day: 0.58% make: 0.52% get: 0.51% could: 0.41% go: 0.41% way: 0.41% show: 0.41%
+Topic #5: company: 2.40% million: 1.34% business: 0.84% year: 0.80% new: 0.76% executive: 0.68% bank: 0.65% billion: 0.63% would: 0.58% money: 0.57%
+Topic #6: said: 1.59% state: 1.11% country: 1.04% united: 0.99% government: 0.94% mr: 0.71% european: 0.68% official: 0.66% american: 0.64% china: 0.56%
+Topic #7: game: 1.58% team: 1.16% said: 1.12% first: 0.92% player: 0.79% season: 0.78% two: 0.72% last: 0.59% second: 0.58% year: 0.55%
+Topic #8: said: 1.99% percent: 1.42% year: 1.17% dr: 0.65% 000: 0.53% health: 0.50% rate: 0.45% could: 0.44% drug: 0.44% new: 0.44%
+Topic #9: mr: 7.58% trump: 2.14% said: 1.32% republican: 1.06% clinton: 1.05% campaign: 1.01% would: 0.96% party: 0.93% state: 0.86% president: 0.82%

@@ -1,0 +1,5 @@
+Topic #0: company: 1.28% percent: 1.17% million: 0.89% year: 0.87% market: 0.74% said: 0.73% european: 0.70% bank: 0.63% price: 0.58% billion: 0.54%
+Topic #1: dr: 2.76% drug: 1.37% health: 1.10% patient: 0.92% medical: 0.90% university: 0.87% cancer: 0.84% doctor: 0.78% hospital: 0.76% study: 0.70%
+Topic #2: like: 0.76% said: 0.74% new: 0.68% year: 0.48% time: 0.47% mr: 0.44% work: 0.37% art: 0.29% people: 0.28% day: 0.27%
+Topic #3: mr: 2.29% said: 2.12% state: 0.66% year: 0.61% people: 0.53% new: 0.46% trump: 0.43% time: 0.38% like: 0.29% president: 0.27%
+Topic #4: game: 1.48% said: 1.41% team: 0.89% player: 0.70% season: 0.69% year: 0.67% time: 0.54% second: 0.50% run: 0.46% point: 0.41%
