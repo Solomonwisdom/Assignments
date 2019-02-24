@@ -1,0 +1,212 @@
+\documentclass[a4paper,UTF8]{article}
+\usepackage{ctex}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{mdframed}
+\usepackage{lipsum}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\newmdtheoremenv{thm-box}{myThm}
+\newmdtheoremenv{prop-box}{Proposition}
+\newmdtheoremenv{def-box}{定义}
+
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\topmargin}{-0.5in}
+% \setlength{\textheight}{9.5in}
+%%%%%%%%%%%%%%%%%%此处用于设置页眉页脚%%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr}                                
+\usepackage{lastpage}                                           
+\usepackage{layout}                                             
+\footskip = 10pt 
+\pagestyle{fancy}                    % 设置页眉                 
+\lhead{2018年秋季}                    
+\chead{高级机器学习}                                                
+% \rhead{第\thepage/\pageref{LastPage}页} 
+\rhead{作业二}                                                                                               
+\cfoot{\thepage}                                                
+\renewcommand{\headrulewidth}{1pt}  			%页眉线宽，设为0可以去页眉线
+\setlength{\skip\footins}{0.5cm}    			%脚注与正文的距离           
+\renewcommand{\footrulewidth}{0pt}  			%页脚线宽，设为0可以去页脚线
+
+\makeatletter 									%设置双线页眉                                        
+\def\headrule{{\if@fancyplain\let\headrulewidth\plainheadrulewidth\fi%
+\hrule\@height 1.0pt \@width\headwidth\vskip1pt	%上面线为1pt粗  
+\hrule\@height 0.5pt\@width\headwidth  			%下面0.5pt粗            
+\vskip-2\headrulewidth\vskip-1pt}      			%两条线的距离1pt        
+ \vspace{6mm}}     								%双线与下面正文之间的垂直间距              
+\makeatother  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\numberwithin{equation}{section}
+%\usepackage[thmmarks, amsmath, thref]{ntheorem}
+\newtheorem{myThm}{myThm}
+\newtheorem*{myDef}{Definition}
+\newtheorem*{mySol}{Solution}
+\newtheorem*{myProof}{Proof}
+\newcommand{\indep}{\rotatebox[origin=c]{90}{$\models$}}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+
+\usepackage{multirow}
+
+%--
+
+%--
+\begin{document}
+\title{高级机器学习\\
+作业二}
+\author{学号, 作者姓名, 邮箱}
+\maketitle
+
+\section{[30pts] Learning Theory}
+\begin{enumerate}[(1)]
+	\item \textbf{[10pts] VC维} 
+
+	试讨论最近邻分类器假设空间的VC维大小，并给出证明.
+	\item \textbf{[10pts] Rademaher复杂度}
+	
+	试证明: 常数函数$c$的Rademaher复杂度为$0$.
+	\item \textbf{[10pts] PAC} 
+	
+	$\mathcal{X}=\mathbb{R}^2, \mathcal{Y}= {0,1}.$假设空间$\mathcal{H}$定义如下：$\mathcal{H}=\{h_r:r \in \mathbb{R}_+\}$,其中$h_r (x)=\mathbb{I}(\parallel x \parallel \leq r)$,假定假设空间是可分的，证明$\mathcal{H}$是PAC可学习的，并且样本复杂度为$\frac{log(1/\delta)}{\epsilon}$
+	\newline
+	(提示：可考虑返回与训练集一致的最小圆的算法)
+\end{enumerate}
+\begin{myProof}
+此处用于写证明(中英文均可)
+
+
+\end{myProof}
+\newpage
+
+\section{[30pts] 文档主题模型}
+在一个新闻数据集上实现文档主题模型(Latent Dirichlet Allocation~(LDA))~\cite{DBLP:journals/jmlr/BleiNJ03}.
+
+我们提供了一个包含8,888条新闻的数据集，请在该数据集上完成LDA算法的使用及实现。
+
+\begin{itemize}
+	\item 数据集下载：\href{http://lamda.nju.edu.cn/ml2018grad/dataset/news.txt.zip}{新闻数据集.}
+	\item 格式：每行是一条新闻.
+\end{itemize}
+
+数据预处理提示：你可能需要完成分词及去掉一些停用词等预处理工作.
+
+\begin{enumerate}[(1)]
+	\item \textbf{[10pts] 任务\#1：使用LDA模型} 
+	\subitem A. 选择开源的LDA库（例如：\href{https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.LatentDirichletAllocation.html}{scikit-learn}），并在提供的数据集上学习使用.
+	\subitem B. 给出$K=\{5,10,20\}$个主题时，每个主题下概率最大的$M=10$个词及其概率.
+	\item \textbf{[20pts] 任务\#2：实现LDA模型} 
+	\subitem A. 不借助开源库，自己完成LDA算法.
+	\subitem B. 给出$K=\{5,10,20\}$个主题时，每个主题下概率最大的$M=10$个词及其概率.
+\end{enumerate}
+\begin{mySol}
+
+\end{mySol}
+\newpage
+
+
+\section{[40pts] 强化学习实验}
+用DQN (deep Q Networks) 训练Flappy Bird. 请各位同学根据DQN算法流程，补全提供的代码包中\text{deep\_q\_networkd.py}文件中“\# TODO”部分代码 (补全 epsilon-greedy action selection以及Q learning updating)，了解DQN算法，并进行训练，本实验时间相对较久.
+
+本次实验所需要的依赖如下：
+\begin{itemize}
+	\item python2.7 or python3;
+	\item pygame;
+	\item OpenCV-python;
+	\item TensorFlow (建议使用1.1-1.6).
+\end{itemize}
+
+强化学习中经典的off-policy算法Q-Learning的原始版本采用表格形式来记录$Q$函数，显然只能应用于有限离散状态、有限离散动作且状态、动作数量较少的情况下，即有维度灾难问题 (表格大小正比于 $|S|*|A|$). 采用函数近似法，假定$Q$函数可由状态特征经过某个函数的映射到对应动作的评价值上，可扩大Q-Learning使用范围. 近年来，DeepMind结合深度模型强大的表达能力，用深度神经网络作为近似函数来表达强化学习中的 $Q$ 函数，进一步扩大了Q-Learning可用范围. DQN中采用experience replay和target network两种技术，使DQN的训练更加高效且鲁棒，并在atari的部分游戏上取得了人类水平的表现.
+
+DQN的流程大致如下~\ref{alg:DQN}：
+\begin{algorithm}
+	\caption{DQN with experience replay}
+	\label{alg:DQN}
+	\begin{algorithmic}
+		\STATE {Initialize replay memory $D$ to capacity $N$} 
+		\STATE {Initialize action-value function $Q$ with random weights $\theta$}
+		\STATE {Initialize target action-value function $\hat{Q}$ with weights $\theta^- =\theta$}
+		\FOR{$episode=1,M$}
+		\STATE {Initialize sequence $s_1={x_1}$ and preprocessed sequence $\phi_1=\phi(s_1)$}
+		\FOR{$t=1,T$}
+		\STATE {With probability $\epsilon$ select a random action $a_t$}
+		\STATE {otherwise select $a_t=\arg\max_a Q(\phi(s_t),a;\theta)$}
+		\STATE {Execute action $a_t$ in emulator and observe reward $r_t$ and image $x_{t+1}$}
+		\STATE {Set $s_{t+1}=s_t,a_t,x_{t+1}$ and preprocess $\phi_{t+1}=\phi(s_{t+1})$}
+		\STATE {Store transition $(\phi_t,a_t,r_t,\phi_t)$ in $D$}
+		\STATE {Sample random minibatch of transitions $(\phi_j,a_j,r_j,\phi_{j+1})$ from $D$}
+		\STATE {Set 
+			\begin{equation}
+			f(x)=
+			\begin{cases}
+			r_j& \text{if episode terminates at step $j+1$}\\
+			r_j+\gamma\max_{a'}\hat{Q}(\phi_{j=1},a';\theta^-)& \text{otherwise}
+			\end{cases}
+			\end{equation}}
+		\STATE {Perform a gradient descent step on $(y_j-Q(\phi_j,a_j;\theta))^2$ with respect to the network parameters $\theta$}
+		\STATE {Every $C$ steps reset $\hat{Q}=Q$}
+		\ENDFOR
+		\ENDFOR
+	\end{algorithmic}
+\end{algorithm}
+
+上图是15年DeepMind发表在Nature上文章中所采用的算法流程，包含了 experience replay和target network技术，本次实验不要实现target network ，仅需要实现experience replay即可 (实现target network可额外获得$5$pts bonus). 感兴趣的同学可参阅DQN相关教程或文章，进一步了解两种技术. 
+
+本次实验中状态太输入为raw pixel，转为$80*80$的灰度图 (采用openCV转换)，并将历史最近$3$个frame叠加到当前frame中作为状态输入，即每一步输入状态为$4*80*80$，动作为$2$维离散动作 (上、下，action为$2$维one-hot编码). 网络模型已经搭建好 (采用TensorFlow 搭建)，输入为$4*80*80$，输出为$2$，对应每个动作对应的 $Q$ 值。如下图所示~\ref{fig:rl_1}.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.4]{rl_1.png}
+	\caption{网络模型.}
+	\label{fig:rl_1}
+\end{figure}
+
+游戏环境中，单步奖励为$0.1$，越过一个管道$+1$，死亡得到$-1$的惩罚. 可采用其他深度学习框架，如 pytorch、keras 等搭建模型并完成训练代码. DQN算法设置可采用如下配置：
+\begin{itemize}
+	\item GAMMA = 0.99 \# decay rate of past observations;
+	\item OBSERVE = 10000. \# timesteps to observe before training;
+	\item EXPLORE = 2000000. \# frames over which to anneal epsilon;
+	\item FINAL\_EPSILON = 0.0001 \# final value of epsilon;
+	\item INITIAL\_EPSILON = 0.1~0.2 \# starting value of epsilon;
+	\item REPLAY\_MEMORY = 50000 \# number of previous transitions to remember;
+	\item BATCH = 32 \# size of minibatch;
+	\item FRAME\_PER\_ACTION = 1.
+\end{itemize}
+
+默认一直训练不会终止，每$10,000$ frames保存一个模型，默认最大保存$5$个，保存的模型可恢复用来测试，默认保存在save\_model 目录下. 采用GPU可加速训练，仅使用双核CPU训练时，采用如上配置，总样本量到$1$M ($1,000,000$个state) 需要时间为$20$~$24$h，大概$3$M可训练出相当不错的策略，考虑到计算咨询和时间，可自行选择训练量.
+
+采用其他深度学习框架时，只需要保持从环境中获得返回的状态、奖励信息，以及是否终止，并可在环境中执行action (再次注意，action为$2$维one-hot编码). Agent与环境交互过程如下所示：
+\begin{itemize}
+	\item sys.path.append("game/");
+	\item import wrapped\_flappy\_bird as game \# import game environment;
+	\item game\_state = game.GameState() \# initialize;
+	\item \# execute an action and get info from the environment;
+	\item $x_t, r_0$, terminal = game\_state.frame\_step(action).
+\end{itemize}
+
+本实验提交要求：
+
+仅需提供补全后deep\_q\_network.py文件，以及训练后的短视频 (连续飞行$5-10$s 即可) 或图片或gif动图等辅助证明材料，并说明训练使用样本量. 如果有任何修改或补充说明，请一并说明. (建议写Readme文件或报告)
+
+
+
+\begin{mySol}
+此处用于写解答(中英文均可)
+
+\end{mySol}
+\newpage
+
+
+\bibliographystyle{plain}
+\bibliography{ref}
+\end{document}
