@@ -1,7 +1,7 @@
 version:  '2'
 services:
   master:
-    image: solomonfield/spark:2.3.2
+    image: solomonfield/spark:2.3.3
     container_name: master
     networks:
       default:
@@ -32,7 +32,7 @@ services:
     stdin_open: true
 
   slave1:
-    image: solomonfield/spark:2.3.2
+    image: solomonfield/spark:2.3.3
     container_name: slave1
     networks:
       default:
@@ -52,7 +52,7 @@ services:
     stdin_open: true
 
   slave2:
-    image: solomonfield/spark:2.3.2
+    image: solomonfield/spark:2.3.3
     container_name: slave2
     networks:
       default:
@@ -72,7 +72,7 @@ services:
     stdin_open: true
 
   slave3:
-    image: solomonfield/spark:2.3.2
+    image: solomonfield/spark:2.3.3
     container_name: slave3
     networks:
       default:
@@ -92,7 +92,7 @@ services:
     stdin_open: true
 
   slave4:
-    image: solomonfield/spark:2.3.2
+    image: solomonfield/spark:2.3.3
     container_name: slave4
     networks:
       default:
@@ -112,7 +112,7 @@ services:
     stdin_open: true
 
   slave5:
-    image: solomonfield/spark:2.3.2
+    image: solomonfield/spark:2.3.3
     container_name: slave5
     networks:
       default:

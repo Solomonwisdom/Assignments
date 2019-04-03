@@ -2,7 +2,7 @@ FROM solomonfield/hadoop:2.7.7
 LABEL Solomonfield <whg19961229@gmail.com>
 
 ENV SCALA_VERSION=2.11.8
-ENV SPARK_VERSION=2.3.2
+ENV SPARK_VERSION=2.3.3
 # Download first
 RUN wget https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.rpm && \
     wget https://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && \
